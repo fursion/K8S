@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1%40service": "file:///Users/fursion/K8S/K8S/App/mynginx.yaml"
+    }
+}
