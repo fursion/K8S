@@ -112,10 +112,24 @@ sudo kubeadm init --pod-network-cidr=172.16.0.0/16 --cri-socket /var/run/cri-doc
 ```
 
 #### 加入工作节点
-
+重新生成加入凭证
+kubeadm token create --print-join-command
 ```bash
-sudo kubeadm join 172.16.172.128:6443 --token abcdef.0123456789abcdef \
---discovery-token-ca-cert-hash sha256:bc20db7d82cbf18c9d8a37507b0004afe6d9eb2b64028bcaaf203e479006da7d --cri-socket /var/run/cri-dockerd.sock
+sudo kubeadm join 172.16.172.128:6443 --token oszbr0.9wut33vjklo5ek8d --discovery-token-ca-cert-hash sha256:f5624c3c2e7fdb16d158a1ba45b511e3425f55f8a5c1b23fb456b663eeee019d --cri-socket /var/run/cri-dockerd.sock --cri-socket /var/run/cri-dockerd.sock
+```
+
+#### [Node节点重置](/K8S_Install.sh)
+```bash
+kubeadm reset
+systemctl stop kubelet
+systemctl stop docker
+rm -rf /var/lib/cni/
+rm -rf /var/lib/kubelet/*
+rm -rf /etc/cni/
+##重启kubelet
+systemctl restart kubelet
+##重启docker
+systemctl restart docker
 ```
 
 ### [kubeadm故障排查手册](https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
